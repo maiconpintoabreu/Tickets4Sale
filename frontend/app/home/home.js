@@ -15,10 +15,13 @@ angular.module('tickets4saleApp.home', ['ngRoute'])
   $scope.musicalShows=[];
   $scope.comedyShows=[];
   $scope.dramaShows=[];
+  
+  let api = "/api/shows";
+
   $scope.getShows = function(){
     var dateValidator = new RegExp(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/);
     if(dateValidator.test($scope.showDate)){
-      $ShowService.getShows("/api/shows",$scope.showDate).then(res=>{
+      $ShowService.getShows(api,$scope.showDate).then(res=>{
         $scope.musicalShows = res.inventory.find(x=>x.genre == "musical").shows;
         $scope.comedyShows = res.inventory.find(x=>x.genre == "comedy").shows;
         $scope.dramaShows = res.inventory.find(x=>x.genre == "drama").shows;

@@ -24,6 +24,21 @@ other front end dependencies.
 *Note copying the AngularJS files from `node_modules` to `app/lib` makes it easier to serve the
 files by a web server.*
 
+### API Configuration Sample
+
+Each controller decides the `api` url.
+Inside `app/home/home.js` you will find a Controller and a Service.
+To change the `api` url you just need to update the variable `api` on the Controller.
+``` 
+...
+$scope.dramaShows=[];
+  
+let api = "/api/shows"; // Here
+
+$scope.getShows = function(){
+...
+```
+
 ### Run the Application
 
 We have preconfigured the project with a simple development web server. The simplest way to start
