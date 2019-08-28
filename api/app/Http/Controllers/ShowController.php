@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\ShowByDayRepository;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 class ShowController extends Controller
 {
-    protected $showByDay;
-    public function __construct(ShowByDayRepository $showByDay)
+    protected $showByDayRepository;
+    public function __construct(ShowByDayRepository $showByDayRepository)
     {
-        $this->showByDay = $showByDay;
+        $this->showByDayRepository = $showByDayRepository;
     }
     /**
      * Display a listing of the resource.
@@ -20,30 +20,28 @@ class ShowController extends Controller
      */
     public function get(Request $request)
     {
-        $showDate = Carbon::parse($request->query('show-date'));
-        $list = $this->showByDay->byDate($showDate);
+        $showDate = CarbonImmutable::parse($request->query('show-date'));
+        $queryDate = CarbonImmutable::today();
+        $list = $this->showByDayRepository->byDate($showDate);
+        $diff = $showDate->diffInDays();
+
         foreach ($list as $show) {
-            $timeToCheck = Carbon::parse($show->show_date);
-            $diff = $timeToCheck->diffInDays();
             $show->tickets_left = 0;
-            if (Carbon::today()->gt($timeToCheck)) {
+            if ($queryDate->gt($showDate)) {
                 $show->tickets_available = 0;
                 $show->status = "In the past";
             } else if($diff > 25) {
-                $show->tickets_available = 0;
                 $show->status = "Sale not started";
-            } else if($diff <= 5) {
-                $show->tickets_available = 0;
-                $show->status = "Sold out";
             } else {
                 $show->status = "Open for sale";
                 if($show->capacity == 200){
-                    $show->tickets_left = $show->capacity - (10*(25-$diff)); 
+                    $show->tickets_left = $show->capacity - (10*(24-$diff)); 
                 }else{
-                    $show->tickets_left = $show->capacity - (5*(25-$diff)); 
+                    $show->tickets_left = $show->capacity - (5*(24-$diff)); 
                 }
                 if($show->tickets_left <= 0){
                     $show->tickets_available = 0;
+                    $show->tickets_left = 0;
                     $show->status = "Sold out";
                 }else if($show->tickets_left < $show->tickets_available){
                     $show->tickets_available = $show->tickets_left;

@@ -1,5 +1,5 @@
 <?php
-
+//Created by Laravel
 namespace App;
 
 use Illuminate\Notifications\Notifiable;

@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Show;
 use App\ShowByDay;
 use Carbon\CarbonImmutable;
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
 class ShowRepository
