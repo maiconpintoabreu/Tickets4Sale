@@ -35,9 +35,9 @@ class ShowController extends Controller
             } else {
                 $show->status = "Open for sale";
                 if($show->capacity == 200){
-                    $show->tickets_left = $show->capacity - (10*(24-$diff)); 
+                    $show->tickets_left = $show->capacity - (10*(25-$diff)); 
                 }else{
-                    $show->tickets_left = $show->capacity - (5*(24-$diff)); 
+                    $show->tickets_left = $show->capacity - (5*(25-$diff)); 
                 }
                 if($show->tickets_left <= 0){
                     $show->tickets_available = 0;
@@ -54,7 +54,7 @@ class ShowController extends Controller
             ["genre"=> "musical", "shows"=>$list->where("show.genre","Musical")->values()],
             ["genre"=> "comedy", "shows"=>$list->where("show.genre","Comedy")->values()],
             ["genre"=> "drama", "shows"=>$list->where("show.genre","Drama")->values()]
-            ]]);
+        ] ]);
     }
     public function generatePrice($show){
         $show->price = 70;
