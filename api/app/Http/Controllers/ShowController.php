@@ -23,7 +23,7 @@ class ShowController extends Controller
         $showDate = CarbonImmutable::parse($request->query('show-date'));
         $queryDate = CarbonImmutable::today();
         $list = $this->showByDayRepository->byDate($showDate);
-        $diff = $showDate->diffInDays();
+        $diff = $showDate->diffInDays()+1;
 
         foreach ($list as $show) {
             $show->tickets_left = 0;
