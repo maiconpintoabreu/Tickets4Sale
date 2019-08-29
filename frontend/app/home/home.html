@@ -1,0 +1,73 @@
+<div class="container">
+    <form  ng-submit="getShows()">
+        <div class="form-group">
+            <label for="showDate">Show Date</label>
+            <input type="text" datetime="yyyy-MM-dd" class="form-control" id="showDate" placeholder="YYYY-MM-DD"
+                ng-model="showDate " min="2013-01-01" max="2013-12-31">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <p class="pt-5">Musicals</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Tickets Left</th>
+                    <th scope="col">Tickets Available</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key,show) in musicalShows">
+                    <th scope="row" ng-bind="show.title" class="w-50"></th>
+                    <td ng-bind="show.tickets_left"></td>
+                    <td ng-bind="show.tickets_available"></td>
+                    <td ng-bind="show.status"></td>
+                    <td ng-bind="show.price"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Comedy</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Tickets Left</th>
+                    <th scope="col">Tickets Available</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key,show) in comedyShows">
+                    <th scope="row" ng-bind="show.title" class="w-50"></th>
+                    <td ng-bind="show.tickets_left"></td>
+                    <td ng-bind="show.tickets_available"></td>
+                    <td ng-bind="show.status"></td>
+                    <td ng-bind="show.price"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Drama</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Tickets Left</th>
+                    <th scope="col">Tickets Available</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key,show) in dramaShows">
+                    <th scope="row" ng-bind="show.title" class="w-50"></th>
+                    <td ng-bind="show.tickets_left"></td>
+                    <td ng-bind="show.tickets_available"></td>
+                    <td ng-bind="show.status"></td>
+                    <td ng-bind="show.price"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
